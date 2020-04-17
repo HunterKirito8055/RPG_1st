@@ -6,5 +6,5 @@ using UnityEngine;
 public class AttackAnimation 
 {
     public AnimationClip motion;
-    public float attack_speed;
+    public float attackTime;
 }

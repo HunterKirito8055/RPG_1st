@@ -8,7 +8,7 @@ public class CameraOrbit : Orbit
     public float camera_Length_zoom = -5f;
 
     public Vector3 Target_Offset = new Vector3(0, 2f, 0);
-    public Vector3 camera_Position_zoom = new Vector3(-0.5f, 0f, 0f);
+  //  public Vector3 camera_Position_zoom = new Vector3(-0.5f, 0f, 0f);
 
     public Vector2 Orbit_Speed = new Vector2(0.01f, 0.01f);
     public Vector2 Orbit_offset = new Vector2(0, -0.8f);
@@ -49,6 +49,9 @@ public class CameraOrbit : Orbit
         }
 
         Spherical_vector_data.Zenith = Mathf.Clamp(Spherical_vector_data.Zenith + Orbit_offset.x, Orbit_offset.y, 0f);
+
+        //time to find distance of camera from player
+        Zoom_value = camera_Length;
         float distance_To_Object = Zoom_value;
         float Distance = Mathf.Clamp(Zoom_value, distance_To_Object, -distance_To_Object);
 
@@ -68,8 +71,7 @@ public class CameraOrbit : Orbit
             PLayer.rotation = Targetrotation;
         }
         Camera_position = Camera_Temp_position;
-        Zoom_value = camera_Length;
-
+       
      }
     void Handle_MouseLock()
     {

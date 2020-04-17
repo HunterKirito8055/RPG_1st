@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
+   
+
+    //player movement
     private Animator P_anim;
     private Camera maincamera;
 
     private PlayerMovement player;
     private Vector3 direction;
 
-    public float speed_attack = 0.05f;
+   
     public float speed_Whileattacking = 0.1f; 
     public float speed = 0.7f;
     public float turnspeed =50f;
@@ -19,13 +22,19 @@ public class CharacterMovement : MonoBehaviour
 
     private float speed_movemultiplier = 1f;
 
+    //attack
     public AttackAnimation[] attack_animations;
-    public string[] combo_listattack;
+    public string[] combo_List_attack;
+    public float speed_attack = 0.05f;
+
     public int ComboType;
+    private int Attack_Index = 0;
 
-    private int Attack_Index;
-   
+    private string[] combo_list;
+    private int attack_Stack;
+    private float attack_Stack_Temptime;
 
+    private bool attacking;
     private void Awake()
     {
         P_anim = GetComponent<Animator>();
@@ -39,6 +48,20 @@ public class CharacterMovement : MonoBehaviour
 
     void Update()
     {
+       
+        HandletheAttackAnimations();
+
+        if (MouseLock.MouseLocked)
+        {
+            if (Input.GetKey(KeyCode.O))
+            {
+               playerattack();
+            }
+            if (Input.GetButtonDown("Fire2"))
+            {
+                playerattack();
+            }
+        }
         Movementandjumping();
     }
     private Vector3 MoveDirection
@@ -59,7 +82,18 @@ public class CharacterMovement : MonoBehaviour
     }
     void moving(Vector3 dir, float mult)
     {
-        speed_movemultiplier = mult * 1f;
+        //speed_movemultiplier = mult * 1f;
+        //MoveDirection = dir;
+
+        if (attacking)
+        {
+            speed_movemultiplier = speed_Whileattacking * mult;
+        }
+        else
+        {
+            speed_movemultiplier = 1 * mult;
+
+        }
         MoveDirection = dir;
     }
     void animationmove(float magnitude)
@@ -101,5 +135,81 @@ public class CharacterMovement : MonoBehaviour
         {
             jumping();
         }
+    }
+    void Resetcombo()
+    {
+        Attack_Index = 0;
+        attack_Stack = 0;
+        attacking = false;
+    }
+    void FightAnimations()
+    {
+       
+        if(combo_list != null && Attack_Index >= combo_list.Length)
+        {
+            Resetcombo(); 
+        }
+        if(combo_list != null && combo_list.Length > 0)
+        {
+            int motion_Index = int.Parse(combo_list[Attack_Index]);
+
+            if(motion_Index < attack_animations.Length)
+            {
+                P_anim.SetInteger("State", 2);
+                P_anim.SetInteger("AttackType", ComboType);
+                P_anim.SetInteger("AttackIndex", Attack_Index);
+            }
+        }
+    }
+    void HandletheAttackAnimations() {
+    if(Time.time > attack_Stack_Temptime + 0.5f)
+        {
+            attack_Stack = 0;
+        }
+        combo_list = combo_List_attack[ComboType].Split("," [0]);
+
+        if (P_anim.GetInteger("State") == 2)
+        {
+            P_anim.speed = speed_attack;
+
+            AnimatorStateInfo stateinfo = P_anim.GetCurrentAnimatorStateInfo(0);
+
+            if (stateinfo.IsTag("Attack"))
+            {
+                int motionindex = int.Parse(combo_list[Attack_Index]);
+
+                if(stateinfo.normalizedTime > 0.9f)
+                {
+                    P_anim.SetInteger("State", 0);
+
+                    attacking = false;
+                    Attack_Index++;
+
+                    if (attack_Stack > 1)
+                    { 
+                        FightAnimations();
+                    }
+                    else
+                    {
+                        if (Attack_Index >= combo_list.Length)
+                        {
+                            Resetcombo();
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    void playerattack()
+    {
+        if (attack_Stack < 1 || (Time.time > attack_Stack_Temptime + 0.2f && Time.time < attack_Stack_Temptime + 1f))
+        {
+            attack_Stack++;
+            attack_Stack_Temptime = Time.time;
+
+        }
+        FightAnimations();
     }
 }
