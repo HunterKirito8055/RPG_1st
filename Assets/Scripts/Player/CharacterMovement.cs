@@ -19,6 +19,13 @@ public class CharacterMovement : MonoBehaviour
 
     private float speed_movemultiplier = 1f;
 
+    public AttackAnimation[] attack_animations;
+    public string[] combo_listattack;
+    public int ComboType;
+
+    private int Attack_Index;
+   
+
     private void Awake()
     {
         P_anim = GetComponent<Animator>();
