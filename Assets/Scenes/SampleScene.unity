@@ -565,6 +565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5393a30fe40ad9b449414bc4de43d4cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firetornado: {fileID: 0}
   speed_Whileattacking: 0.1
   speed: 0.7
   turnspeed: 50
@@ -734,6 +735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5393a30fe40ad9b449414bc4de43d4cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firetornado: {fileID: 175744, guid: e5bc8bb50018c46cd9669532417609a0, type: 3}
   speed_Whileattacking: 0.1
   speed: 0.7
   turnspeed: 10

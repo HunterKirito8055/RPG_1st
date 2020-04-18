@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController playercontroller ;
     private Collider collider;
 
+
     public float Lerptime = 10f;
     public float Gravity_multiplier = 1f;
     public float Distance_to_Ground = 0.1f;

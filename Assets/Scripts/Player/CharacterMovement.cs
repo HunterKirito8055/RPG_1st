@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-   
+    //special attack
+    public GameObject firetornado;
 
     //player movement
     private Animator P_anim;
@@ -37,6 +38,7 @@ public class CharacterMovement : MonoBehaviour
     private bool attacking;
     private void Awake()
     {
+        
         P_anim = GetComponent<Animator>();
         player = GetComponent<PlayerMovement>();
     }
@@ -53,17 +55,22 @@ public class CharacterMovement : MonoBehaviour
 
         if (MouseLock.MouseLocked)
         {
-            if (Input.GetKey(KeyCode.O))
+            if (Input.GetButtonDown("Fire1"))
             {
-               playerattack();
+                
+                playerattack();
             }
             if (Input.GetButtonDown("Fire2"))
             {
                 playerattack();
+                StartCoroutine(tornado());
             }
+            specialattack();
         }
-        Movementandjumping();
-    }
+        
+           Movementandjumping();
+       
+;    }
     private Vector3 MoveDirection
     {
         get { return direction;  }
@@ -87,11 +94,12 @@ public class CharacterMovement : MonoBehaviour
 
         if (attacking)
         {
-            speed_movemultiplier = speed_Whileattacking * mult;
+          
+            speed_movemultiplier = speed_Whileattacking * mult ;
         }
         else
         {
-            speed_movemultiplier = 1 * mult;
+            speed_movemultiplier = 1f * mult;
 
         }
         MoveDirection = dir;
@@ -204,6 +212,7 @@ public class CharacterMovement : MonoBehaviour
 
     void playerattack()
     {
+      
         if (attack_Stack < 1 || (Time.time > attack_Stack_Temptime + 0.2f && Time.time < attack_Stack_Temptime + 1f))
         {
             attack_Stack++;
@@ -211,5 +220,33 @@ public class CharacterMovement : MonoBehaviour
 
         }
         FightAnimations();
+    }
+    IEnumerator tornado()
+    {
+        yield return new WaitForSeconds(0.4f);
+       
+        Instantiate(firetornado, transform.position + transform.forward * 2.5f, Quaternion.identity);
+    }
+
+    void specialattack()
+    {
+        if (Input.GetKey(KeyCode.P))
+        {
+            P_anim.speed = 1f;
+            P_anim.SetInteger("State", 2);
+            P_anim.SetInteger("AttackType", 1);
+            
+
+            AnimatorStateInfo stateinf = P_anim.GetCurrentAnimatorStateInfo(0);
+            if (stateinf.IsTag("skill"))
+            {
+                if(stateinf.normalizedTime > 0.9f)
+                {
+                    P_anim.SetInteger("State",0);
+                    Movementandjumping();
+                }
+            }
+        }
+       
     }
 }
