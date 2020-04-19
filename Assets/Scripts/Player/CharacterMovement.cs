@@ -65,10 +65,11 @@ public class CharacterMovement : MonoBehaviour
                 playerattack();
                 StartCoroutine(tornado());
             }
-            specialattack();
+            
         }
         
            Movementandjumping();
+        specialattack();
        
 ;    }
     private Vector3 MoveDirection
@@ -104,6 +105,28 @@ public class CharacterMovement : MonoBehaviour
         }
         MoveDirection = dir;
     }
+
+    void specialattack()
+    {
+        if (Input.GetKey(KeyCode.P))
+        {
+
+            P_anim.SetInteger("State", 2);
+            P_anim.SetInteger("AttackType", 1);
+            P_anim.speed = 0.8f;
+        }
+        AnimatorStateInfo state = P_anim.GetCurrentAnimatorStateInfo(0);
+        if (state.IsTag("skill")) {
+            if (state.normalizedTime > 0.9f)
+            {
+                P_anim.SetInteger("State", 0);
+            }
+        }
+       
+        
+       
+    }
+    
     void animationmove(float magnitude)
     {
         if (magnitude > move_magnitude)
@@ -168,6 +191,7 @@ public class CharacterMovement : MonoBehaviour
                 P_anim.SetInteger("AttackIndex", Attack_Index);
             }
         }
+       
     }
     void HandletheAttackAnimations() {
     if(Time.time > attack_Stack_Temptime + 0.5f)
@@ -182,7 +206,7 @@ public class CharacterMovement : MonoBehaviour
 
             AnimatorStateInfo stateinfo = P_anim.GetCurrentAnimatorStateInfo(0);
 
-            if (stateinfo.IsTag("Attack"))
+            if (stateinfo.IsTag("Attack") )
             {
                 int motionindex = int.Parse(combo_list[Attack_Index]);
 
@@ -220,33 +244,14 @@ public class CharacterMovement : MonoBehaviour
 
         }
         FightAnimations();
+        
     }
     IEnumerator tornado()
     {
         yield return new WaitForSeconds(0.4f);
-       
-        Instantiate(firetornado, transform.position + transform.forward * 2.5f, Quaternion.identity);
+        
+        Instantiate(firetornado, transform.position + transform.forward  * 2.5f, Quaternion.identity);
     }
 
-    void specialattack()
-    {
-        if (Input.GetKey(KeyCode.P))
-        {
-            P_anim.speed = 1f;
-            P_anim.SetInteger("State", 2);
-            P_anim.SetInteger("AttackType", 1);
-            
-
-            AnimatorStateInfo stateinf = P_anim.GetCurrentAnimatorStateInfo(0);
-            if (stateinf.IsTag("skill"))
-            {
-                if(stateinf.normalizedTime > 0.9f)
-                {
-                    P_anim.SetInteger("State",0);
-                    Movementandjumping();
-                }
-            }
-        }
-       
-    }
+    
 }

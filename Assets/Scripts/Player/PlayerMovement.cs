@@ -19,8 +19,14 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 MoveDirection = Vector3.zero;
     private Vector3 TargetDirection = Vector3.zero;
 
+    public AudioClip godhand;
+    private AudioSource god;
+
+
+    
     private void Awake()
     {
+        god = GetComponent<AudioSource>();
         collider = GetComponent<Collider>();
         playercontroller = GetComponent<CharacterController>();
     }
@@ -44,6 +50,13 @@ public class PlayerMovement : MonoBehaviour
         if (!IsGrounded)
         {
             Fall_velocity -= Gravity_multiplier * 90f * Time.smoothDeltaTime;
+        }
+        if (Input.GetKey(KeyCode.P))
+        {
+            god.volume = 1f;
+            god.clip = godhand;
+            god.Play();
+            
         }
     }
 
