@@ -36,9 +36,14 @@ public class CharacterMovement : MonoBehaviour
     private float attack_Stack_Temptime;
 
     private bool attacking;
+
+    //audio
+
+    public AudioClip godhand;
+    private AudioSource god;
     private void Awake()
     {
-        
+        god = GetComponent<AudioSource>();
         P_anim = GetComponent<Animator>();
         player = GetComponent<PlayerMovement>();
     }
@@ -100,7 +105,7 @@ public class CharacterMovement : MonoBehaviour
         }
         else
         {
-            speed_movemultiplier = 1f * mult;
+            speed_movemultiplier = 1 * mult;
 
         }
         MoveDirection = dir;
@@ -108,12 +113,15 @@ public class CharacterMovement : MonoBehaviour
 
     void specialattack()
     {
-        if (Input.GetKey(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))
         {
 
             P_anim.SetInteger("State", 2);
             P_anim.SetInteger("AttackType", 1);
             P_anim.speed = 0.8f;
+            god.volume = 1f;
+            god.clip = godhand;
+            god.Play();
         }
         AnimatorStateInfo state = P_anim.GetCurrentAnimatorStateInfo(0);
         if (state.IsTag("skill")) {
