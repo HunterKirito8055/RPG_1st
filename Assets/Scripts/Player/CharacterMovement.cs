@@ -41,6 +41,13 @@ public class CharacterMovement : MonoBehaviour
 
     public AudioClip godhand;
     private AudioSource god;
+
+    //VFX area
+    
+    public float explosionRadii = 20f;
+    public float power = 7f;
+    public GameObject vfxObj;
+
     private void Awake()
     {
         god = GetComponent<AudioSource>();
@@ -122,6 +129,9 @@ public class CharacterMovement : MonoBehaviour
             god.volume = 1f;
             god.clip = godhand;
             god.Play();
+
+            //Stephen
+            explosionAtck();
         }
         AnimatorStateInfo state = P_anim.GetCurrentAnimatorStateInfo(0);
         if (state.IsTag("skill")) {
@@ -261,5 +271,25 @@ public class CharacterMovement : MonoBehaviour
         Instantiate(firetornado, transform.position + transform.forward  * 2.5f, Quaternion.identity);
     }
 
-    
+    public void explosionAtck()
+    {
+        //Explosion force
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadii);
+
+        foreach(Collider hit in colliders)
+        {
+            Rigidbody rb = hit.GetComponent<Rigidbody>();
+
+            if (rb != null)
+                rb.AddExplosionForce(power, this.transform.position, explosionRadii);
+        }
+        
+        
+        Quaternion playerRotation = this.transform.localRotation;
+
+        GameObject newObj = Instantiate(vfxObj, transform.localPosition + (transform.forward* 5f), playerRotation);
+        
+
+    }
+
 }
