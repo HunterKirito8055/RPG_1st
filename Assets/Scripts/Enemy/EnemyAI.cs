@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
 
-    public float move_magnitude = 0.05f; 
+    public float move_magnitude = 0.05f;
     public float movement_speed = 0.5f;
     private float speed_multiplier = 1f;
 
@@ -22,9 +22,13 @@ public class EnemyAI : MonoBehaviour
     private PlayerMovement movement;
     private Vector3 Move_position;
 
+    [SerializeField]
+    private GameObject Rightatk_point, Leftatk_point;
+
     // Start is called before the first frame update
     void Start()
     {
+        
         anim = GetComponent<Animator>();
         movement = GetComponent<PlayerMovement>();
     }
@@ -32,20 +36,23 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        AI();
+         AI();     
+       
     }
 
     void AI()
     {
-        float distance = Vector3.Distance(Move_position, transform.position);
-        Quaternion target_rotation = Quaternion.LookRotation(Move_position - transform.position);//look at player from our position
-        target_rotation.x = 0;
-        target_rotation.z = 0;
+        
+            float distance = Vector3.Distance(Move_position, transform.position);
+            Quaternion target_rotation = Quaternion.LookRotation(Move_position - transform.position);//look at player from our position
+            target_rotation.x = 0;
+            target_rotation.z = 0;
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, target_rotation, Time.deltaTime * TurnSpeed);
+            transform.rotation = Quaternion.Lerp(transform.rotation, target_rotation, Time.deltaTime * TurnSpeed);
 
-        if (player != null)
+        if (player!=null)
         {
+
             Move_position = player.position;
             if (ai_Time <= 0)
             {
@@ -94,33 +101,37 @@ public class EnemyAI : MonoBehaviour
             {
                 player = target.transform;
             }
-            if (ai_state == 0)
-            {
-                ai_state = 1;
-                ai_Time = Random.Range(10, 200);
-               
-                Move_position = transform.position + 
-                    new Vector3(Random.Range(-patrol_range,patrol_range), 0f, Random.Range(-patrol_range, patrol_range));
-            }
-            if (ai_Time <= 0)
-            {
-                ai_state = Random.Range(0, 1);
-                ai_Time = Random.Range(10, 200);
-            }
-            else
-            {
-                ai_Time--;
-            }
           
+            if (ai_state == 0)
+                {
+                    ai_state = 1;
+                    ai_Time = Random.Range(10, 200);
 
+                    Move_position = transform.position +
+                        new Vector3(Random.Range(-patrol_range, patrol_range), 0f, Random.Range(-patrol_range, patrol_range));
+                }
+                if (ai_Time <= 0)
+                {
+                    ai_state = Random.Range(0, 1);
+                    ai_Time = Random.Range(10, 200);
+                }
+                else
+                {
+                    ai_Time--;
+                }
+
+            }
+
+                moveToPosition(Move_position, 1f, movement.playercontroller.velocity.magnitude);
+            
+
+        
         }
-        moveToPosition(Move_position, 1f, movement.playercontroller.velocity.magnitude);
-
-    }
-    void moveToPosition(Vector3 position,float speedmul,float magnitude)
+    
+    void moveToPosition(Vector3 position, float speedmul, float magnitude)
     {
         float speed = movement_speed * speed_multiplier * 2 * 5 * speedmul;
- 
+
         Vector3 direction = position - transform.position;
         Quaternion newrotation = transform.rotation;
 
@@ -133,25 +144,25 @@ public class EnemyAI : MonoBehaviour
 
             newrotation = Quaternion.LookRotation(direction);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, newrotation,TurnSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, newrotation, TurnSpeed * Time.deltaTime);
         }
         else
         {
-            movement.stop(); 
+            movement.stop();
         }
         AnimationMove(magnitude * 0.1f);
         CheckifattackEnded();
     }
     void AnimationMove(float magnitude)
     {
-        if(magnitude > move_magnitude)
+        if (magnitude > move_magnitude)
         {
             float SpeedAnimation = magnitude * 2f;
             if (SpeedAnimation < 1f)
                 SpeedAnimation = 1f;
             if (!anim.GetBool("Run"))
             {
-                anim.SetBool("Run",true);
+                anim.SetBool("Run", true);
                 anim.speed = SpeedAnimation;
             }
         }
@@ -182,7 +193,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
         {
-            if(anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.8f)
+            if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.8f)
             {
                 anim.SetBool("Attack1", false);
                 anim.SetBool("Run", false);
@@ -201,8 +212,26 @@ public class EnemyAI : MonoBehaviour
 
     }
 
+    void RighthandAttack_On()
+    {
+        Rightatk_point.SetActive(true);
+    }
+    void RighthandAttack_off()
+    {
+        Rightatk_point.SetActive(false);
+    }
+    void LefthandAttack_On()
+    {
+        Leftatk_point.SetActive(true);
+    }
+    void LefthandAttack_off()
+    {
+        Leftatk_point.SetActive(false);
+    }
 }
-       
+
+
+
 
 
 

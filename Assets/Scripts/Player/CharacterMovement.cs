@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
+    //attack gameobject
+    private GameObject atkpoint;
+
     //special attack
     public GameObject firetornado;
 
@@ -39,7 +42,7 @@ public class CharacterMovement : MonoBehaviour
 
     //audio
 
-    public AudioClip godhand;
+    public AudioClip godhand,firestornado;
     private AudioSource god;
 
     //VFX area
@@ -58,7 +61,10 @@ public class CharacterMovement : MonoBehaviour
     {
         P_anim.applyRootMotion = false;
         maincamera = Camera.main;
+        atkpoint = GameObject.Find("Player Attack Point");
+        atkpoint.SetActive(false);
     }
+
 
     void Update()
     {
@@ -76,6 +82,8 @@ public class CharacterMovement : MonoBehaviour
             {
                 playerattack();
                 StartCoroutine(tornado());
+                god.clip = firestornado;
+                god.Play();
             }
             
         }
@@ -83,7 +91,7 @@ public class CharacterMovement : MonoBehaviour
            Movementandjumping();
         specialattack();
        
-;    }
+   }
     private Vector3 MoveDirection
     {
         get { return direction;  }
@@ -129,9 +137,10 @@ public class CharacterMovement : MonoBehaviour
             god.volume = 1f;
             god.clip = godhand;
             god.Play();
+            StartCoroutine(explosive());
 
             //Stephen
-            explosionAtck();
+            //explosionAtck();
         }
         AnimatorStateInfo state = P_anim.GetCurrentAnimatorStateInfo(0);
         if (state.IsTag("skill")) {
@@ -169,6 +178,7 @@ public class CharacterMovement : MonoBehaviour
     void jumping()
     {
         player.jump(jumpspeed);
+      
     }
     void Movementandjumping()
     {
@@ -290,6 +300,36 @@ public class CharacterMovement : MonoBehaviour
         GameObject newObj = Instantiate(vfxObj, transform.localPosition + (transform.forward* 5f), playerRotation);
         
 
+    }
+
+    IEnumerator explosive()
+    {
+        yield return new WaitForSeconds(1f);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadii);
+
+        foreach (Collider hit in colliders)
+        {
+            Rigidbody rb = hit.GetComponent<Rigidbody>();
+
+            if (rb != null)
+                rb.AddExplosionForce(power, this.transform.position, explosionRadii);
+        }
+
+
+        Quaternion playerRotation = this.transform.localRotation;
+
+        GameObject newObj = Instantiate(vfxObj, transform.localPosition + (transform.forward * 5f), playerRotation);
+        GameObject ScndObj = Instantiate(vfxObj, transform.position + (transform.right * 10f) + (transform.forward *10f)   , playerRotation);
+        GameObject ThirdObj = Instantiate(vfxObj, transform.position + (-transform.right * 10f) + (transform.forward * 10f), playerRotation);
+    }
+
+    void attack_Began()
+    {
+        atkpoint.SetActive(true);
+    }
+    void attack_End()
+    {
+        atkpoint.SetActive(false);
     }
 
 }

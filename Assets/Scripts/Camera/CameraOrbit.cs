@@ -36,8 +36,11 @@ public class CameraOrbit : Orbit
     }
     private void Update()
     {
-        HandleCamera();
-        Handle_MouseLock();
+        if (PLayer)
+        {
+            HandleCamera();
+            Handle_MouseLock();
+        }
     }
 
     void HandleCamera()

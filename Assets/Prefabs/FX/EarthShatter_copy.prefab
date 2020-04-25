@@ -4497,7 +4497,8 @@ GameObject:
   - component: {fileID: 4825948614923682}
   - component: {fileID: 198345217066185332}
   - component: {fileID: 199528594520767084}
-  - component: {fileID: 8392726988568239575}
+  - component: {fileID: 114051302977172978}
+  - component: {fileID: 114809402615721178}
   m_Layer: 0
   m_Name: EarthShatter_copy
   m_TagString: Untagged
@@ -9259,7 +9260,24 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &8392726988568239575
+--- !u!114 &114051302977172978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314945738539566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d07db2a06972fa44980e80babca55bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemylayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  damage: 80
+  Radius: 2
+--- !u!114 &114809402615721178
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
