@@ -977,7 +977,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 319544230}
-  m_LocalRotation: {x: 0.011685764, y: 0.98829037, z: -0.1040628, w: 0.110980384}
+  m_LocalRotation: {x: 0.011685758, y: 0.98829037, z: -0.10406278, w: 0.11098035}
   m_LocalPosition: {x: -2.2392612, y: 3.92, z: 9.844686}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1344,7 +1344,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 416657884}
-  m_LocalRotation: {x: 0.011685764, y: 0.98829037, z: -0.1040628, w: 0.110980384}
+  m_LocalRotation: {x: 0.011685758, y: 0.98829037, z: -0.10406278, w: 0.11098035}
   m_LocalPosition: {x: -2.2392612, y: 3.92, z: 9.844686}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1508,7 +1508,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 837983339}
-        m_MethodName: buttonClick
+        m_MethodName: clickExit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3777,8 +3777,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 837983339}
-        m_MethodName: buttonClick
+      - m_Target: {fileID: 837983341}
+        m_MethodName: newGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4073,6 +4073,8 @@ GameObject:
   - component: {fileID: 837983337}
   - component: {fileID: 837983336}
   - component: {fileID: 837983339}
+  - component: {fileID: 837983340}
+  - component: {fileID: 837983341}
   m_Layer: 0
   m_Name: Animations
   m_TagString: Untagged
@@ -4155,6 +4157,31 @@ MonoBehaviour:
   mainPanel: {fileID: 1169208903}
   panelNewGame: {fileID: 356191593}
   panelOptions: {fileID: 375258671}
+--- !u!114 &837983340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837983335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d2df15458666fe4987618711caf1b42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  csr: {fileID: 2800000, guid: 75bb8cbbf56a6fc49ab89c78793f7c2e, type: 3}
+--- !u!114 &837983341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837983335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe678627b157aa409678da8b6e94d5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &854380168
 GameObject:
   m_ObjectHideFlags: 0
@@ -5448,7 +5475,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -5926,6 +5953,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CatGirl
+      objectReference: {fileID: 0}
+    - target: {fileID: 45328865183691022, guid: a551111faaaa9bd4f987665b120b6478,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 45328865184050432, guid: a551111faaaa9bd4f987665b120b6478,
         type: 3}

@@ -51,4 +51,9 @@ public class menuAnimation : MonoBehaviour
         mainPanel.SetActive(true);
         dof.focusDistance.value = Mathf.Lerp(dof.focusDistance, 6.92f, 5.0f);
     }
+
+    public void clickExit()
+    {
+        Application.Quit();
+    }
 }
