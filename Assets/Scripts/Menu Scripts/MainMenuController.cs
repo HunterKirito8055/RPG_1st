@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MainMenuController : MonoBehaviour
 {
-    public GameObject ButtonPanel, CharacterSelect_Panel;
+    public GameObject ButtonPanel, CharacterSelect_Panel,createCharacterPanel;
     private MainMenuCamera mainmenucamera;
 
     private void Awake()
@@ -18,7 +18,7 @@ public class MainMenuController : MonoBehaviour
     {
         mainmenucamera.changeposition(1);
         ButtonPanel.SetActive(false);
-            CharacterSelect_Panel.SetActive(true);
+           CharacterSelect_Panel.SetActive(true);
         //if (mainmenucamera.Can_Click)
         //{
         //    mainmenucamera.Can_Click = false;
@@ -43,7 +43,21 @@ public class MainMenuController : MonoBehaviour
         //}
     }
 
+    public void createCharcter()
+    {
+        CharacterSelect_Panel.SetActive(false);
+        createCharacterPanel.SetActive(true);
+    }
 
-
+    public void Accept()
+    {
+        CharacterSelect_Panel.SetActive(true);
+        createCharacterPanel.SetActive(false);
+    }
+    public void Cancel()
+    {
+        CharacterSelect_Panel.SetActive(true);
+        createCharacterPanel.SetActive(false);
+    }
 
 }
