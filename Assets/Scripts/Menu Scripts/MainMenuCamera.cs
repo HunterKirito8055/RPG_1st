@@ -12,13 +12,46 @@ public class MainMenuCamera : MonoBehaviour
     private bool reach_Characterselectposition = true;
     private bool canclick;
     private bool backToMainmenu;
-   
 
-    
+    //another way 
+    public List<GameObject> positions = new List<GameObject>();
+
+    private void Awake()
+    {
+        positions.Add(GameStartedPosition);
+    }
+
+
     void Update()
     {
-       MoveToGameStartedPosition();
-       MoveToCharacterSelectPosition();
+        //MoveToGameStartedPosition();
+        //MoveToCharacterSelectPosition();
+        // moveBackToMainmenu(); 
+        movetoposition();
+    }
+
+    void movetoposition()
+    {
+        if (positions.Count > 0)
+        {
+            transform.position = Vector3.Lerp(transform.position, positions[0].transform.position,1f * Time.deltaTime);
+                
+            transform.rotation = Quaternion.Lerp(transform.rotation, positions[0].transform.rotation, 1f * Time.deltaTime); 
+        }
+    }
+
+    public void changeposition(int index) {
+
+        positions.RemoveAt(0);
+        if(index == 0)
+        {
+            positions.Add(GameStartedPosition);
+        }
+        else
+        {
+            positions.Add(CharacterSelectPosition);
+        }
+    
     }
     void MoveToGameStartedPosition()
     {
@@ -57,6 +90,23 @@ public class MainMenuCamera : MonoBehaviour
         }
     }
 
+    void moveBackToMainmenu()
+    {
+        if (backToMainmenu)
+        {
+            if (Vector3.Distance(transform.position, GameStartedPosition.transform.position ) < 0.2f)
+            {
+                backToMainmenu = false;
+                canclick = true;
+            }
+        }
+        if (backToMainmenu)
+        {
+            transform.position = Vector3.Lerp(transform.position, GameStartedPosition.transform.position, 1f * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, GameStartedPosition.transform.rotation, 1f * Time.deltaTime);
+        }
+
+    }
     public bool reached_CharacterSelectposition
     {
         get
