@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -41,6 +42,12 @@ public class MainMenuController : MonoBehaviour
         //    ButtonPanel.SetActive(true);
         //    CharacterSelect_Panel.SetActive(false);
         //}
+    }
+
+    public void StartGame()
+    {
+
+        SceneLoader.instance.LoadLevel("Village");
     }
 
     public void createCharcter()
