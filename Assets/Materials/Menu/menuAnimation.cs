@@ -12,6 +12,8 @@ public class menuAnimation : MonoBehaviour
 
     PostProcessVolume menuGraphics;
     DepthOfField dof;
+
+    bool panFar = true;
     void Start()
     {
         menuGraphics = GameObject.Find("Main Camera").GetComponent<PostProcessVolume>();
@@ -21,11 +23,18 @@ public class menuAnimation : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+    public void Update()
+    {
+        if (panFar == true)
+            dof.focusDistance.value = Mathf.Lerp(dof.focusDistance, 6.92f, 5.0f * Time.deltaTime);
+        else
+            dof.focusDistance.value = Mathf.Lerp(dof.focusDistance, 2.0f, 2f * Time.deltaTime);
+    }
     public void clickPlay()
     {
         mainPanel.SetActive(false);
-        dof.focusDistance.value = Mathf.Lerp(dof.focusDistance, 2.0f, 2f);
+        //dof.focusDistance.value = Mathf.Lerp(dof.focusDistance, 2.0f, 2f);
+        panFar = false;
         panelNewGame.SetActive(true);
         panelNewGame.GetComponentInChildren<Image>().CrossFadeAlpha(1, 5, false);
     }
@@ -34,7 +43,8 @@ public class menuAnimation : MonoBehaviour
     {
        
         mainPanel.SetActive(false);
-        dof.focusDistance.value = Mathf.Lerp(dof.focusDistance, 2.0f, 2f);
+        //dof.focusDistance.value = Mathf.Lerp(dof.focusDistance, 2.0f, 2f);
+        panFar = false;
         panelOptions.SetActive(true);
         panelOptions.GetComponentInChildren<Image>().CrossFadeAlpha(1, 5, false);
     }
@@ -42,14 +52,16 @@ public class menuAnimation : MonoBehaviour
     {
         panelNewGame.SetActive(false);
         mainPanel.SetActive(true);
-        dof.focusDistance.value = Mathf.Lerp(dof.focusDistance, 6.92f, 5.0f);
+        //dof.focusDistance.value = Mathf.Lerp(dof.focusDistance, 6.92f, 5.0f);
+        panFar = true;
     }
 
     public void clickbackOption()
     {
         panelOptions.SetActive(false);
         mainPanel.SetActive(true);
-        dof.focusDistance.value = Mathf.Lerp(dof.focusDistance, 6.92f, 5.0f);
+        //dof.focusDistance.value = Mathf.Lerp(dof.focusDistance, 6.92f, 5.0f);
+        panFar = true;
     }
 
     public void clickExit()
