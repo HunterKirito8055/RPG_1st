@@ -102,7 +102,11 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<< HEAD
       spriteID: 02305410000000000800000000000000
+=======
+      spriteID: ffb876cacb74ff549ad9dedaa667e2b4
+>>>>>>> parent of b445968... commit
       vertices: []
       indices: 
       edges: []
@@ -122,7 +126,11 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<< HEAD
       spriteID: 22305410000000000800000000000000
+=======
+      spriteID: eece7f712e474f24fbf14be9fc35c0cb
+>>>>>>> parent of b445968... commit
       vertices: []
       indices: 
       edges: []
@@ -142,7 +150,11 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<< HEAD
       spriteID: 42305410000000000800000000000000
+=======
+      spriteID: b5e4f44bc499bbb42a0fada3dc9a3782
+>>>>>>> parent of b445968... commit
       vertices: []
       indices: 
       edges: []
@@ -162,7 +174,11 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<< HEAD
       spriteID: 62305410000000000800000000000000
+=======
+      spriteID: 25242cb622c10ba45baaec6ae2525d4e
+>>>>>>> parent of b445968... commit
       vertices: []
       indices: 
       edges: []
