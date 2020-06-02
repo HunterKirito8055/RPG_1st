@@ -823,7 +823,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3713651313221939672
 Transform:
   m_ObjectHideFlags: 0
@@ -1022,6 +1022,7 @@ MonoBehaviour:
   speed_attack: 1.5
   ComboType: 0
   godhand: {fileID: 8300000, guid: 6217b14377edf9e409a4df5bb56bf068, type: 3}
+  firestornado: {fileID: 0}
   explosionRadii: 20
   power: 434.38
   vfxObj: {fileID: 1314945738539566, guid: be98757b87a6536489d6d065751e7d3e, type: 3}
@@ -1038,6 +1039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  Dead_FX: {fileID: 0}
 --- !u!1 &3713651313222231356
 GameObject:
   m_ObjectHideFlags: 0
